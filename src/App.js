@@ -1,25 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//https://material-ui.com/getting-started/installation/
+
+export const App = () => {
+    return(
+        <div>
+            It's the weather, man. We'll use an api. Also MUI, so make sure we're not using the divs
+        </div>
+        
+    )
 }
-
-export default App;
