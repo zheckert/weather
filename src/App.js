@@ -1,6 +1,11 @@
 import axios from "axios"
 import React, { useState } from "react"
 
+import Card from "@material-ui/core/Card"
+import Container from "@material-ui/core/Container"
+import Button from "@material-ui/core/Button"
+import Paper from "@material-ui/core/Paper"
+
 //https://material-ui.com/getting-started/installation/
 
 //https://www.weatherapi.com/docs/
@@ -12,22 +17,21 @@ export const App = () => {
     const getWeather = () => {
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=Utah`)
         .then((response) => {
-        //    
-        console.log(response.data)
-            // setWeather(response.data.current.feelslike_f)
+            setWeather(response.data.current.feelslike_f)
         })
         .catch((error => console.log(error)))
     }
 
     return(
         <>
-        <div>
-            It's the weather, man. We'll use an api. Also MUI, so make sure we're not using the divs
-            <button onClick={()=> getWeather()}>GET IT</button>
-        </div>
-        <div>
-            {weather}
-        </div>
+            <Container>
+                <Paper>
+                    <Button onClick={()=> getWeather()}>Get It!</Button>
+                </Paper>
+                <Card>
+                    {weather}
+                </Card>
+            </Container>
         </>
     )
 }
