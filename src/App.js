@@ -1,24 +1,20 @@
 import axios from "axios"
 import React, { useState } from "react"
-require('dotenv').config()
 
 //https://material-ui.com/getting-started/installation/
 
 //https://www.weatherapi.com/docs/
-// console.log("api key test", process.env.APIKEY)
-
 
 export const App = () => {
     
     const [ weather, setWeather ] = useState("")
 
     const getWeather = () => {
-        // axios.get("https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json", {key: process.env.APIKEY}, {q: "orem"})
-        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.APIKEY}&q=London`)
+        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=Utah`)
         .then((response) => {
         //    
-        // console.log(response.data)
-            setWeather(response.data.current.feelslike_f)
+        console.log(response.data)
+            // setWeather(response.data.current.feelslike_f)
         })
         .catch((error => console.log(error)))
     }
