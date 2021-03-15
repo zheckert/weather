@@ -17,19 +17,21 @@ export const App = () => {
     const getWeather = () => {
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=Utah`)
         .then((response) => {
-            setWeather(response.data.current.feelslike_f)
+            setWeather(response.data)
+            // console.log("weather", response.data)
         })
         .catch((error => console.log(error)))
     }
 
     return(
+        
         <>
             <Container>
                 <Paper>
                     <Button onClick={()=> getWeather()}>Get It!</Button>
                 </Paper>
                 <Card>
-                    {weather}
+                    In {weather.location.name}, it's currently {weather.current.temp_f}° Fahrenheit.                    
                 </Card>
             </Container>
         </>
