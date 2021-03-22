@@ -38,12 +38,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-//TODO
+//TODO MVP
 //Need to submit form if enter key is pressed
 //Need to alert user to errors caused by entering invalid information
 //Need to make it so that the submit button is a button and not an input
 //On top of making things look nice in MUI, you need to add a cool background so I don't want to vomit anymore
 //before deployment make sure to move API key to Netlify's key stuff
+
+//TODO BONUS
+//theme checkbox
+//celcius/fahrenheit checkbox
 
 
 
@@ -64,7 +68,7 @@ export const App = () => {
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=${city}`)
         .then((response) => {
                 setWeather(response.data)
-                // console.log("response.data", response.data)
+                console.log("response.data", response.data)
             })
         .catch((error => console.log(error)))
     }
@@ -87,7 +91,7 @@ export const App = () => {
                         </form>
                         { weather && 
                             <Card>
-                                In {weather.location.name}, it's currently {weather.current.temp_f}° Fahrenheit.                    
+                                In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {weather.current.temp_f}° Fahrenheit.                    
                             </Card>
                         }
                     </Card>
