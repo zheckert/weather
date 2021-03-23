@@ -2,21 +2,20 @@ import axios from "axios"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 
+import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
+import Checkbox from "@material-ui/core/Checkbox"
 import Container from "@material-ui/core/Container"
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
+// import Input from "@material-ui/core/Input"
+
 import { Typography } from "@material-ui/core"
-import Input from "@material-ui/core/Input"
-// import Paper from "@material-ui/core/Paper"
-
 import { makeStyles } from "@material-ui/core/styles";
-
-//https://material-ui.com/getting-started/installation/
-
-//https://www.weatherapi.com/docs/
-
-// Next: 
-// need margin
-// need to fix the submit thing
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,36 +28,16 @@ const useStyles = makeStyles((theme) => ({
     mainCard: {
         padding: "20px",
         backgroundColor: "#ffffff",
-        // backgroundImage: `url()`,
-        // backgroundAttachment: "fixed",
-        // backgroundSize: "cover",
-        margin: theme.spacing(3,)
+        margin: theme.spacing(3)
     },
-    buttonStyling: {
-        background: 'linear-gradient(45deg, #38E0B6 30%, #00C795 60%)',
-        padding: theme.spacing(1),
-        borderRadius: "10%",
-    }
 }))
-
-//TODO MVP
-
-//restructure app so it makes sense and isn't goofy
-
-//Need to submit form if enter key is pressed <= this works, but NOT ON FIRST ATTEMPT for some reason. Not sure why that would be!
-//Need to alert user to errors caused by entering invalid information
-//Need to make it so that the submit button is a button and not an input (or just style it in general so it doesn't look horrendous)
-//before deployment make sure to move API key to Netlify's key stuff
-
-//TODO BONUS
-//theme checkbox (ie dark or light)
-//celcius/fahrenheit checkbox
 
 export const Main = () => {
     const styles = useStyles()
 
     const { register, handleSubmit, errors } = useForm()
     const [ city, setCity ] = useState()
+    const [ temperature, setTemperature ] = useState()
     
     const onSubmit = (data) => {
         setCity(data.city)
@@ -76,10 +55,21 @@ export const Main = () => {
         .catch((error => console.log(error)))
     }
 
+    let value = 9
+    let handleChange = 1
+
     return(    
         <div>
             <Container className={styles.root}>
                     <Card className={styles.mainCard}>
+                        <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
+                        />
+                        <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
+                        />
+                        <RadioGroup aria-label="temperature" name="temperature1" value={value} onChange={handleChange}>
+                            <FormControlLabel value="Fahrenheit" control={<Radio />} label="Fahrenheit" />
+                            <FormControlLabel value="Celcius" control={<Radio />} label="Celcius" />
+                        </RadioGroup>
                         <Typography>Please enter the city you'd like data for below:</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <input
@@ -90,7 +80,7 @@ export const Main = () => {
                             >
                             </input>
                             {errors.city && <p>Please enter a city!</p>}
-                            <Input className={styles.buttonStyling} type="submit">Submit</Input>
+                            <Button variant="contained" color="primary" disableElevation type="submit">Submit</Button>
                         </form>
                         { weather && 
                             <Card>
@@ -98,9 +88,6 @@ export const Main = () => {
                             </Card>
                         }
                     </Card>
-                {/* <Paper>
-                    <Button onClick={()=> getWeather()}>Get It!</Button>
-                </Paper> */}
             </Container>
         </div>
     )

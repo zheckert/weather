@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         textAlign: "center",
         fontSize: "40px",
+        margin: theme.spacing(2)
     }
 }))
 
