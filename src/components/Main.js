@@ -4,11 +4,8 @@ import { useForm } from "react-hook-form"
 
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
-import Checkbox from "@material-ui/core/Checkbox"
 import Container from "@material-ui/core/Container"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
@@ -37,7 +34,7 @@ export const Main = () => {
 
     const { register, handleSubmit, errors } = useForm()
     const [ city, setCity ] = useState()
-    const [ temperature, setTemperature ] = useState()
+    const [ temperature, setTemperature ] = useState("Fahrenheit")
     
     const onSubmit = (data) => {
         setCity(data.city)
@@ -55,18 +52,19 @@ export const Main = () => {
         .catch((error => console.log(error)))
     }
 
-    let value = 9
-    let handleChange = 1
+    const handleChange = (e) => {
+        setTemperature(e.target.value);
+    };
 
     return(    
         <div>
             <Container className={styles.root}>
                     <Card className={styles.mainCard}>
-                        <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
+                        {/* <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
                         />
                         <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
-                        />
-                        <RadioGroup aria-label="temperature" name="temperature1" value={value} onChange={handleChange}>
+                        /> */}
+                        <RadioGroup aria-label="temperature" name="temperature1" value={temperature} onChange={handleChange}>
                             <FormControlLabel value="Fahrenheit" control={<Radio />} label="Fahrenheit" />
                             <FormControlLabel value="Celcius" control={<Radio />} label="Celcius" />
                         </RadioGroup>
@@ -84,7 +82,7 @@ export const Main = () => {
                         </form>
                         { weather && 
                             <Card>
-                                In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {weather.current.temp_f}° Fahrenheit.                    
+                                In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {temperature === "Fahrenheit" ? weather.current.temp_f : weather.current.temp_c}° {temperature}.                    
                             </Card>
                         }
                     </Card>
