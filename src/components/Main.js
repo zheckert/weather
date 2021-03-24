@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
     },
     mainCard: {
-        padding: "20px",
-        backgroundColor: "#ffffff",
+        padding: theme.spacing(3),
         margin: theme.spacing(3)
     },
 }))
@@ -44,13 +43,22 @@ export const Main = () => {
     const [ weather, setWeather ] = useState("")
 
     const getWeather = (city) => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=${city}`)
+        
+        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=1&aqi=no&alerts=no`)
         .then((response) => {
                 setWeather(response.data)
                 console.log("response.data", response.data)
             })
         .catch((error => console.log(error)))
     }
+
+    // const getWeather = (city) => {
+    //     axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=${city}`)
+    //     .then((response) => {
+    //             console.log("response.data", response.data)
+    //         })
+    //     .catch((error => console.log(error)))
+    // }
 
     const handleChange = (e) => {
         setTemperature(e.target.value);
