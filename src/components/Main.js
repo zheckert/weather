@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
+import { Forecast } from "./Forecast"
 
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
@@ -8,9 +9,6 @@ import Container from "@material-ui/core/Container"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
-// import Input from "@material-ui/core/Input"
-
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -34,31 +32,37 @@ export const Main = () => {
     const { register, handleSubmit, errors } = useForm()
     const [ city, setCity ] = useState()
     const [ temperature, setTemperature ] = useState("Fahrenheit")
-    
+    const [ weather, setWeather ] = useState([])
+
     const onSubmit = (data) => {
         setCity(data.city)
         getWeather(city)
     }
     
-    const [ weather, setWeather ] = useState("")
-
     const getWeather = (city) => {
         
-        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=1&aqi=no&alerts=no`)
+        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=3&aqi=no&alerts=no`)
         .then((response) => {
                 setWeather(response.data)
-                console.log("response.data", response.data)
+                                console.log("wtf is weather", weather)
+
+                // console.log("response.data", response.data)
             })
         .catch((error => console.log(error)))
     }
 
-    // const getWeather = (city) => {
-    //     axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_APIKEY}&q=${city}`)
-    //     .then((response) => {
-    //             console.log("response.data", response.data)
-    //         })
-    //     .catch((error => console.log(error)))
-    // }
+    const forecast = weather && weather.map((forecastData, i) => 
+    <Forecast
+        key={i}
+        date={forecastData.forecast.forecastday}
+        // icon={}
+        // condition={}
+        // high={}
+        // low={}
+    />
+)
+    
+    
 
     const handleChange = (e) => {
         setTemperature(e.target.value);
@@ -94,6 +98,11 @@ export const Main = () => {
                             </Card>
                         }
                     </Card>
+                        {/* { weather && 
+                            <Card>
+                                {forecast}
+                            </Card> 
+                        } */}
             </Container>
         </div>
     )
