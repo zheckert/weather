@@ -1,7 +1,6 @@
 import axios from "axios"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
-import { Forecast } from "./Forecast"
 
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
@@ -11,6 +10,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
+
+import { Forecast } from "./Forecast"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,38 +33,34 @@ export const Main = () => {
     const { register, handleSubmit, errors } = useForm()
     const [ city, setCity ] = useState()
     const [ temperature, setTemperature ] = useState("Fahrenheit")
-    const [ weather, setWeather ] = useState([])
+    const [ weather, setWeather ] = useState("")
 
     const onSubmit = (data) => {
+        console.log("What's coming in thru the form?", data)
         setCity(data.city)
-        getWeather(city)
     }
     
     const getWeather = (city) => {
-        
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=3&aqi=no&alerts=no`)
         .then((response) => {
-                setWeather(response.data)
-                                console.log("wtf is weather", weather)
-
-                // console.log("response.data", response.data)
+            setWeather(response.data)
+            console.log("wtf is weather", weather)
+            // console.log("response.data", response.data)
             })
         .catch((error => console.log(error)))
     }
 
-    const forecast = weather && weather.map((forecastData, i) => 
-    <Forecast
-        key={i}
-        date={forecastData.forecast.forecastday}
-        // icon={}
-        // condition={}
-        // high={}
-        // low={}
-    />
-)
+    // const forecast = weather && weather.map((forecastData, i) => 
+    //     <Forecast
+    //         key={i}
+    //         date={forecastData.forecast.forecastday}
+    //         // icon={}
+    //         // condition={}
+    //         // high={}
+    //         // low={}
+    //     />
+    // )
     
-    
-
     const handleChange = (e) => {
         setTemperature(e.target.value);
     };
@@ -72,10 +69,6 @@ export const Main = () => {
         <div>
             <Container className={styles.root}>
                     <Card className={styles.mainCard}>
-                        {/* <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
-                        />
-                        <Checkbox inputProps={{ 'aria-label': 'primary checkbox' }}
-                        /> */}
                         <RadioGroup aria-label="temperature" name="temperature1" value={temperature} onChange={handleChange}>
                             <FormControlLabel value="Fahrenheit" control={<Radio />} label="Fahrenheit" />
                             <FormControlLabel value="Celcius" control={<Radio />} label="Celcius" />
@@ -90,7 +83,8 @@ export const Main = () => {
                             >
                             </input>
                             {errors.city && <p>Please enter a city!</p>}
-                            <Button variant="contained" color="primary" disableElevation type="submit">Submit</Button>
+                            <Button variant="contained" color="primary" disableElevation type="submit" >Submit</Button>
+                            <Button variant="contained" color="primary" disableElevation type="submit" onClick={() => getWeather(city)}>Submit</Button>
                         </form>
                         { weather && 
                             <Card>

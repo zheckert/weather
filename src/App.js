@@ -11,7 +11,11 @@ import { Main } from "./components/Main"
 
 //ENCRYPT THE API KEY. ON FAILED CALLS ITS VISIBLE. omg
 //restructure app so it makes sense and isn't goofy
-//Need to submit form if enter key is pressed <= this works, but NOT ON FIRST ATTEMPT for some reason. Not sure why that would be!
+
+
+//Need to submit form if enter key is pressed <= this works, but NOT ON FIRST ATTEMPT for some reason. Not sure why that would be! ATTN ATTN ATTN THIS IS A HUGE ISSUE I THINK ITS BREAKING EVERYTHING GOTTA FIX THIS FIRST
+
+
 //Need to alert user to errors caused by entering invalid information
 //Need to make it so that the submit button is a button and not an input (or just style it in general so it doesn't look horrendous)
 //before deployment make sure to move API key to Netlify's key stuff
