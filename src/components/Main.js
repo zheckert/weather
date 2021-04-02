@@ -42,7 +42,7 @@ export const Main = () => {
     const styles = useStyles()
 
     const { register, handleSubmit, errors } = useForm()
-    const [ city, setCity ] = useState()
+    const [ ,setCity ] = useState()
     const [ temperature, setTemperature ] = useState("Fahrenheit")
     const [ weather, setWeather ] = useState(undefined)
 
