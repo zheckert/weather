@@ -6,17 +6,18 @@ import { makeStyles } from "@material-ui/core/styles"
 const useStyles = makeStyles((theme) => ({
     root: {
         textAlign: "center",
-        fontSize: "40px",
-        margin: theme.spacing(2)
+        fontSize: "20px",
+        margin: theme.spacing(2),
+        padding: theme.spacing(1.5)
     }
 }))
 
 export const Forecast = (props) => {
-    // const styles = useStyles()
+    const styles = useStyles()
 
     return(
 
-        <Card>
+        <Card className={styles.root}>
             <div>
                 {props.date}
             </div>
@@ -28,12 +29,12 @@ export const Forecast = (props) => {
             </div>
             <div>
                 {props.text}
-            </div>
+            </div>                
+                <div>
+                High: {props.high}°
+                </div>            
             <div>
-                {props.high}
-            </div>
-            <div>
-                {props.low}
+                Low: {props.low}°
             </div>
         </Card>
     )

@@ -25,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
         margin: theme.spacing(3)
     },
+    radio: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row"
+    },
+    // Not sure if I want to do this. I'd need to add mediaqueries. For now I'd rather deploy
+    // forecast: {
+    //     display: "flex",
+    //     justifyContent: "center",
+    //     flexDirection: "row"
+    // },
 }))
 
 export const Main = () => {
@@ -61,8 +72,8 @@ export const Main = () => {
             icon={forecastData.day.condition.icon}
             text={forecastData.day.condition.text}
             condition={forecastData.condition}
-            high={forecastData.high}
-            low={forecastData.low}
+            high={temperature === "Fahrenheit" ? forecastData.day.maxtemp_f : forecastData.day.maxtemp_c}
+            low={temperature === "Fahrenheit" ? forecastData.day.mintemp_f : forecastData.day.mintemp_c}
         />
     )
     
@@ -74,7 +85,7 @@ export const Main = () => {
         <div>
             <Container className={styles.root}>
                     <Card className={styles.mainCard}>
-                        <RadioGroup aria-label="temperature" name="temperature1" value={temperature} onChange={handleChange}>
+                        <RadioGroup className={styles.radio} aria-label="temperature" name="temperature1" value={temperature} onChange={handleChange}>
                             <FormControlLabel value="Fahrenheit" control={<Radio />} label="Fahrenheit" />
                             <FormControlLabel value="Celcius" control={<Radio />} label="Celcius" />
                         </RadioGroup>
@@ -91,17 +102,12 @@ export const Main = () => {
                             <Button variant="contained" color="primary" disableElevation type="submit">Submit</Button>
                         </form>
                         { isWeatherLoaded() && 
-                        // organize this with components and subcomponents?
                             <Card>
-                                In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {temperature === "Fahrenheit" ? weather.current.temp_f : weather.current.temp_c}° {temperature}.                    
-                            </Card>
-                        }
-                    </Card>
-                        { isWeatherLoaded() && 
-                            <Card>
-                                {forecast}
+                                In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {temperature === "Fahrenheit" ? weather.current.temp_f : weather.current.temp_c}° {temperature}.
+                                <Container className={styles.forecast}>{forecast}</Container>  
                             </Card> 
                         }
+                    </Card>       
             </Container>
         </div>
     )

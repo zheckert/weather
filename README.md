@@ -1,8 +1,8 @@
 # Weather
 
-A simple weather app. Find out the temperature.  
+A simple weather app. Check the temperature and forecast.
 
-Built with React and Material-UI. SVG styling elements by https://www.svgbackgrounds.com/ (thank you!)
+Built with Axios, React, and Material-UI.
 
 > Currently unfinished, but I wanted the README.md to not be stock. I'll update this later!
 
