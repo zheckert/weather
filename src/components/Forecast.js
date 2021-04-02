@@ -22,7 +22,7 @@ export const Forecast = (props) => {
                 {props.date}
             </div>
             <div>
-                <img src={`${props.icon}`} />
+                <img src={`${props.icon}`} alt={props.condition}/>
             </div>
             <div>
                 {props.condition}

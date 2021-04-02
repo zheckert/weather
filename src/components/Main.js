@@ -49,7 +49,6 @@ export const Main = () => {
     const isWeatherLoaded = () => !!weather
 
     const onSubmit = (data) => {
-        console.log("What's coming in thru the form?", data)
         setCity(data.city)
         getWeather(data.city)
     }
@@ -57,8 +56,6 @@ export const Main = () => {
     const getWeather = (city) => {
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=3&aqi=no&alerts=no`)
         .then((response) => {
-            console.log("wtf is weather", weather)
-            console.log("response.data", response.data)
             setWeather(response.data)
             })
         .catch((error => console.log(error)))
