@@ -33,33 +33,38 @@ export const Main = () => {
     const { register, handleSubmit, errors } = useForm()
     const [ city, setCity ] = useState()
     const [ temperature, setTemperature ] = useState("Fahrenheit")
-    const [ weather, setWeather ] = useState("")
+    const [ weather, setWeather ] = useState(undefined)
+
+    const isWeatherLoaded = () => !!weather
 
     const onSubmit = (data) => {
         console.log("What's coming in thru the form?", data)
         setCity(data.city)
+        getWeather(data.city)
     }
     
     const getWeather = (city) => {
         axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=3&aqi=no&alerts=no`)
         .then((response) => {
-            setWeather(response.data)
             console.log("wtf is weather", weather)
-            // console.log("response.data", response.data)
+            console.log("response.data", response.data)
+            setWeather(response.data)
             })
         .catch((error => console.log(error)))
     }
 
-    // const forecast = weather && weather.map((forecastData, i) => 
-    //     <Forecast
-    //         key={i}
-    //         date={forecastData.forecast.forecastday}
-    //         // icon={}
-    //         // condition={}
-    //         // high={}
-    //         // low={}
-    //     />
-    // )
+    //also list the day
+    const forecast = isWeatherLoaded() && weather.forecast.forecastday.map((forecastData) => 
+        <Forecast
+            key={forecastData.date}
+            date={forecastData.date}
+            icon={forecastData.day.condition.icon}
+            text={forecastData.day.condition.text}
+            condition={forecastData.condition}
+            high={forecastData.high}
+            low={forecastData.low}
+        />
+    )
     
     const handleChange = (e) => {
         setTemperature(e.target.value);
@@ -74,29 +79,29 @@ export const Main = () => {
                             <FormControlLabel value="Celcius" control={<Radio />} label="Celcius" />
                         </RadioGroup>
                         <Typography>Please enter the city you'd like data for below:</Typography>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <input
-                                type="city"
-                                placeholder="What city?"
-                                name="city"
-                                ref={register({required: true})}
-                            >
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <input
+                                    type="city"
+                                    placeholder="What city?"
+                                    name="city"
+                                    ref={register({required: true})}
+                                >
                             </input>
                             {errors.city && <p>Please enter a city!</p>}
-                            <Button variant="contained" color="primary" disableElevation type="submit" >Submit</Button>
-                            <Button variant="contained" color="primary" disableElevation type="submit" onClick={() => getWeather(city)}>Submit</Button>
+                            <Button variant="contained" color="primary" disableElevation type="submit">Submit</Button>
                         </form>
-                        { weather && 
+                        { isWeatherLoaded() && 
+                        // organize this with components and subcomponents?
                             <Card>
                                 In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {temperature === "Fahrenheit" ? weather.current.temp_f : weather.current.temp_c}° {temperature}.                    
                             </Card>
                         }
                     </Card>
-                        {/* { weather && 
+                        { isWeatherLoaded() && 
                             <Card>
                                 {forecast}
                             </Card> 
-                        } */}
+                        }
             </Container>
         </div>
     )

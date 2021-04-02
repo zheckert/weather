@@ -21,10 +21,13 @@ export const Forecast = (props) => {
                 {props.date}
             </div>
             <div>
-                {props.icon}
+                <img src={`${props.icon}`} />
             </div>
             <div>
                 {props.condition}
+            </div>
+            <div>
+                {props.text}
             </div>
             <div>
                 {props.high}
