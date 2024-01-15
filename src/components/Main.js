@@ -29,13 +29,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         flexDirection: "row"
-    },
-    // Not sure if I want to do this. I'd need to add mediaqueries. For now I'd rather deploy
-    // forecast: {
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     flexDirection: "row"
-    // },
+    }
 }))
 
 export const Main = () => {
@@ -54,14 +48,17 @@ export const Main = () => {
     }
     
     const getWeather = (city) => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_APIKEY}&q=${city}&days=3&aqi=no&alerts=no`)
+
+        const apiKey = process.env.REACT_APP_APIKEY;
+        const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3&aqi=no&alerts=no`;
+
+        axios.get(apiUrl)
         .then((response) => {
             setWeather(response.data)
             })
         .catch((error => console.log(error)))
     }
 
-    //also list the day
     const forecast = isWeatherLoaded() && weather.forecast.forecastday.map((forecastData) => 
         <Forecast
             key={forecastData.date}
@@ -93,6 +90,12 @@ export const Main = () => {
                                     placeholder="What city?"
                                     name="city"
                                     ref={register({required: true})}
+                                    style={{
+                                        paddingTop: '6px',
+                                        paddingBottom: '9px',
+                                        marginRight: '5px',
+                                        fontSize: '15px',
+                                      }}
                                 >
                             </input>
                             {errors.city && <p>Please enter a city!</p>}
