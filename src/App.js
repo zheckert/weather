@@ -12,10 +12,7 @@ import { Main } from "./components/Main"
 //before deployment make sure to move API key to Netlify's key stuff
 //add the ability to adjust how many days forecast you'd like
 
-//TODO BONUS
-//theme checkbox (ie dark or light)
-
-export const App = () => {
+function App() {
     return(    
         <>
             <Header />
@@ -23,3 +20,5 @@ export const App = () => {
         </>
     )
 }
+
+export default App;

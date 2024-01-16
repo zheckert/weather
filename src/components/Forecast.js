@@ -1,41 +1,36 @@
 import React from "react"
 
-import { Card } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import { styled } from "@mui/system";
+import Card from "@mui/material/Card";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        textAlign: "center",
-        fontSize: "20px",
-        margin: theme.spacing(2),
-        padding: theme.spacing(1.5)
-    }
-}))
+const ForecastCard = styled(Card)(({ theme }) => ({
+    textAlign: "center",
+    fontSize: "20px",
+    margin: theme.spacing(2),
+    padding: theme.spacing(1.5)
+}));
 
 export const Forecast = (props) => {
-    const styles = useStyles()
-
-    return(
-
-        <Card className={styles.root}>
+    return (
+        <ForecastCard>
             <div>
                 {props.date}
             </div>
             <div>
-                <img src={`${props.icon}`} alt={props.condition}/>
+                <img src={`${props.icon}`} alt={props.condition} />
             </div>
             <div>
                 {props.condition}
             </div>
             <div>
                 {props.text}
-            </div>                
-                <div>
+            </div>
+            <div>
                 High: {props.high}°
-                </div>            
+            </div>
             <div>
                 Low: {props.low}°
             </div>
-        </Card>
+        </ForecastCard>
     )
 }
