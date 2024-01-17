@@ -1,6 +1,7 @@
 import React from "react"
 import { styled } from "@mui/system";
 import Typography from "@mui/material/Typography";
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const HeaderTypography = styled(Typography)(({ theme }) => ({
     textAlign: "center",
@@ -21,7 +22,16 @@ export const Header = () => {
                 Weather App
             </HeaderTypography>
             <SubheaderTypography>
-                By <a href="https://zachheckert.com/" rel="noopener noreferrer" target="_blank">Zach</a>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }}>
+                    <div>
+                    By Zach
+                    </div>
+                    <div style={{ textDecoration: 'none', marginLeft: '8px', paddingTop: '6px'}}>
+                    <a href="https://github.com/zheckert/weather" rel="noopener noreferrer" target="_blank" >
+                        <GitHubIcon />
+                    </a>
+                    </div>
+                </div>
             </SubheaderTypography>
         </>
     )
