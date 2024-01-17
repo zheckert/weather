@@ -33,7 +33,7 @@ const RadioGroupWrapper = styled(RadioGroup)(({ theme }) => ({
 
 export const Main = () => {
     const { register, handleSubmit, errors } = useForm()
-    const [setCity] = useState()
+    const [city, setCity] = useState('')
     const [temperature, setTemperature] = useState("Fahrenheit")
     const [weather, setWeather] = useState(undefined)
 
@@ -55,7 +55,7 @@ export const Main = () => {
             .catch((error => console.log(error)))
     }
 
-    const forecast = isWeatherLoaded() && weather.forecast.forecastday.map((forecastData) =>
+    const forecast = isWeatherLoaded() && weather.forecast?.forecastday?.map((forecastData) => (
         <Forecast
             key={forecastData.date}
             date={forecastData.date}
@@ -65,7 +65,7 @@ export const Main = () => {
             high={temperature === "Fahrenheit" ? forecastData.day.maxtemp_f : forecastData.day.maxtemp_c}
             low={temperature === "Fahrenheit" ? forecastData.day.mintemp_f : forecastData.day.mintemp_c}
         />
-    )
+    ))
 
     const handleChange = (e) => {
         setTemperature(e.target.value);
@@ -89,6 +89,7 @@ export const Main = () => {
                             paddingTop: '6px',
                             paddingBottom: '9px',
                             marginTop: '10px',
+                            marginBottom: '10px',
                             marginRight: '5px',
                             fontSize: '15px',
                         }}
@@ -97,7 +98,7 @@ export const Main = () => {
                     <Button variant="contained" color="primary" disableElevation type="submit">Submit</Button>
                 </form>
                 {isWeatherLoaded() &&
-                    <Card>
+                    <Card style={{paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}}>
                         In {weather.location.name}, {weather.location.name === weather.location.region ? weather.location.country : weather.location.region}, it's currently {temperature === "Fahrenheit" ? weather.current.temp_f : weather.current.temp_c}° {temperature}.
                         <MainContainer>{forecast}</MainContainer>
                     </Card>
