@@ -33,7 +33,7 @@ const RadioGroupWrapper = styled(RadioGroup)(({ theme }) => ({
 
 export const Main = () => {
     const { register, handleSubmit, errors } = useForm()
-    const [city, setCity] = useState('')
+    const [, setCity] = useState('')
     const [temperature, setTemperature] = useState("Fahrenheit")
     const [weather, setWeather] = useState(undefined)
 
